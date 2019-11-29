@@ -77,59 +77,53 @@ def setup_buttons():
     # To finish program
     Button(master, text='Continue').grid(row=13, column=1)
 
+ # size of window
+master.minsize(width=200, height=200)
+master.geometry('585x550+0+0')
 
-while True:
-    try:
-        # size of window
-        master.minsize(width=200, height=200)
-        master.geometry('585x550+0+0')
+setup_empty_rows()
+setup_labels()
+setup_buttons()
 
-        setup_empty_rows()
-        setup_labels()
-        setup_buttons()
+# checkboxes
+CheckVar1 = IntVar()
+CheckVar2 = IntVar()
 
-        # checkboxes
-        CheckVar1 = IntVar()
-        CheckVar2 = IntVar()
+C1 = Checkbutton(master, text="Americano coffee", variable=CheckVar1,\
+                 onvalue=1, offvalue=0, height=2,\
+                 width=20, ).grid(row=6, column=0)
+C2 = Checkbutton(master, text="Frappuccino coffee", variable=CheckVar2,\
+                 onvalue=1, offvalue=0, height=2,\
+                 width=20).grid(row=6, column=1)
 
-        C1 = Checkbutton(master, text="Americano coffee", variable=CheckVar1,\
-                         onvalue=1, offvalue=0, height=2,\
-                         width=20, ).grid(row=6, column=0)
-        C2 = Checkbutton(master, text="Frappuccino coffee", variable=CheckVar2,\
-                         onvalue=1, offvalue=0, height=2,\
-                         width=20).grid(row=6, column=1)
+Label(master, text=" Now calculate the amount of coffee you can make!! ").grid(row=8, column=1)
 
-        Label(master, text=" Now calculate the amount of coffee you can make!! ").grid(row=8, column=1)
+feet = StringVar()
+meters = StringVar()
 
-        feet = StringVar()
-        meters = StringVar()
+# setup_fields
+e1 = Entry(master)
+e2 = Entry(master)
+e3 = Entry(master)
+e1.grid(row=1, column=1)
+e2.grid(row=2, column=1)
+e3.grid(row=3, column=1)
 
-        # setup_fields
-        e1 = Entry(master)
-        e2 = Entry(master)
-        e3 = Entry(master)
-        e1.grid(row=1, column=1)
-        e2.grid(row=2, column=1)
-        e3.grid(row=3, column=1)
+# Input entrybox in calculation function
+feet_entry = ttk.Entry(master, width=7, textvariable=feet)
+feet_entry.grid(column=1, row=9, sticky=(W, E))
 
-        # Input entrybox in calculation function
-        feet_entry = ttk.Entry(master, width=7, textvariable=feet)
-        feet_entry.grid(column=1, row=9, sticky=(W, E))
+# show calculations
+ttk.Label(master, textvariable=meters).grid(column=1, row=10, sticky=(W, E))
+# press to convert units and calculate
+ttk.Button(master, text="Calculate", command=calculate).grid(column=1, row=11, sticky=W)
 
-        # show calculations
-        ttk.Label(master, textvariable=meters).grid(column=1, row=10, sticky=(W, E))
-        # press to convert units and calculate
-        ttk.Button(master, text="Calculate", command=calculate).grid(column=1, row=11, sticky=W)
+ttk.Label(master, text="bags of coffee(175g/bag)").grid(column=0, row=9, sticky=E)
+ttk.Label(master, text="cups of coffee can make").grid(column=0, row=10, sticky=E)
 
-        ttk.Label(master, text="bags of coffee(175g/bag)").grid(column=0, row=9, sticky=E)
-        ttk.Label(master, text="cups of coffee can make").grid(column=0, row=10, sticky=E)
+for child in master.winfo_children():
+    child.grid_configure(padx=5, pady=5)
 
-        for child in master.winfo_children():
-            child.grid_configure(padx=5, pady=5)
+return_calculations()
 
-        return_calculations()
 
-    except ValueError:
-        print("Oops!  That was no valid number.  Try again...")
-    except SyntaxError:
-        print("Oops! Invalid syntax. Try again...")
